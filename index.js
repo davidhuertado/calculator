@@ -1,3 +1,5 @@
+///TODO
+
 //Variables de botones
 
 const number0 = document.querySelector("#zero");
@@ -23,13 +25,24 @@ let objetoOperacion = {
 };
 
 //Funciones operadores
-function pressOperator(operatorButton, displayValue, objetoOperacion) {
-  if (objetoOperacion.previousValue === undefined)
+//Si no es undefined, llamar a la funcion operar
+function pressOperator(operante, operatorButton, objetoOperacion) {
+  if (objetoOperacion.previousValue === undefined) {
     objetoOperacion = {
-    operador: operatorButton.textContent,
-    previousValue: display.textContent,
-  };
-  return objetoOperacion;
+      operador: operante.textContent,
+      previousValue: display.textContent,
+    };
+    return objetoOperacion;
+  }
+  else {
+    display.textContent = operar(display.textContent, objetoOperacion);
+    objetoOperacion = {
+      operador: operante.textContent,
+      previousValue: display.textContent,
+    };
+    return objetoOperacion;
+
+  }
 }
 
 sumar.addEventListener("click", () => {
@@ -49,19 +62,17 @@ dividir.addEventListener("click", () => {
   return objetoOperacion;
 });
 igual.addEventListener("click", () => {
-    return display.textContent = operar(display.textContent, objetoOperacion);
-    
-})
+  return (display.textContent = operar(display.textContent, objetoOperacion));
+});
 
 // Funciones display number
 
 function displayTheValue(valueToDisplay) {
-    if (objetoOperacion.operador === undefined) {
-  return (display.textContent += valueToDisplay);
-    }
-    else {
-        return (display.textContent = valueToDisplay);
-    }
+  if (objetoOperacion.operador === undefined) {
+    return (display.textContent += valueToDisplay);
+  } else {
+    return (display.textContent = valueToDisplay);
+  }
 }
 number0.addEventListener("click", () => {
   return displayTheValue(number0.textContent);
@@ -85,7 +96,7 @@ number6.addEventListener("click", () => {
   return displayTheValue(number6.textContent);
 });
 number7.addEventListener("click", () => {
-  return displayTheValue(number8.textContent);
+  return displayTheValue(number7.textContent);
 });
 number8.addEventListener("click", () => {
   return displayTheValue(number8.textContent);
@@ -109,21 +120,30 @@ function divide(a, b) {
 }
 
 function operar(valorPantalla, objetoOperacion) {
-    let resultado = 0;
-    if(objetoOperacion.operador === "+") {
-        resultado = add(Number(objetoOperacion.previousValue), Number(valorPantalla));
-        return resultado;
-    }
-    else if(objetoOperacion.operador === "-") {
-        resultado = substract(Number(objetoOperacion.previousValue), Number(valorPantalla));
-        return resultado;
-    }
-    else if(objetoOperacion.operador === "x") {
-        resultado = multiply(Number(objetoOperacion.previousValue), Number(valorPantalla));
-        return resultado;
-    }
-    else if(objetoOperacion.operador === "/") {
-        resultado = divide(Number(objetoOperacion.previousValue), Number(valorPantalla));
-        return resultado;
-    }
+  let resultado = 0;
+  if (objetoOperacion.operador === "+") {
+    resultado = add(
+      Number(objetoOperacion.previousValue),
+      Number(valorPantalla)
+    );
+    return resultado;
+  } else if (objetoOperacion.operador === "-") {
+    resultado = substract(
+      Number(objetoOperacion.previousValue),
+      Number(valorPantalla)
+    );
+    return resultado;
+  } else if (objetoOperacion.operador === "x") {
+    resultado = multiply(
+      Number(objetoOperacion.previousValue),
+      Number(valorPantalla)
+    );
+    return resultado;
+  } else if (objetoOperacion.operador === "/") {
+    resultado = divide(
+      Number(objetoOperacion.previousValue),
+      Number(valorPantalla)
+    );
+    return resultado;
+  }
 }
