@@ -17,38 +17,51 @@ const dividir = document.querySelector("#dividir");
 const igual = document.querySelector("#igual");
 let display = document.querySelector("#display-value");
 let displayValue = display.textContent;
-let objetoOperacion = {};
+let objetoOperacion = {
+  operador: undefined,
+  previousValue: undefined,
+};
 
 //Funciones operadores
 function pressOperator(operatorButton, displayValue, objetoOperacion) {
-     objetoOperacion = {
-        operador: operatorButton.textContent, 
-        previousValue: displayValue,
-    };
-    return objetoOperacion;
- }
+  if (objetoOperacion.previousValue === undefined)
+    objetoOperacion = {
+    operador: operatorButton.textContent,
+    previousValue: display.textContent,
+  };
+  return objetoOperacion;
+}
 
 sumar.addEventListener("click", () => {
-    objetoOperacion = pressOperator(sumar, displayValue, objetoOperacion);
-    return objetoOperacion;
+  objetoOperacion = pressOperator(sumar, displayValue, objetoOperacion);
+  return objetoOperacion;
 });
 restar.addEventListener("click", () => {
-    objetoOperacion = pressOperator(restar, displayValue, objetoOperacion);
-    return objetoOperacion;
+  objetoOperacion = pressOperator(restar, displayValue, objetoOperacion);
+  return objetoOperacion;
 });
 multiplicar.addEventListener("click", () => {
-    objetoOperacion = pressOperator(multiplicar, displayValue, objetoOperacion);
-    return objetoOperacion;
+  objetoOperacion = pressOperator(multiplicar, displayValue, objetoOperacion);
+  return objetoOperacion;
 });
 dividir.addEventListener("click", () => {
-    objetoOperacion = pressOperator(dividir, displayValue, objetoOperacion);
-    return objetoOperacion;
+  objetoOperacion = pressOperator(dividir, displayValue, objetoOperacion);
+  return objetoOperacion;
 });
+igual.addEventListener("click", () => {
+    return display.textContent = operar(display.textContent, objetoOperacion);
+    
+})
 
 // Funciones display number
 
 function displayTheValue(valueToDisplay) {
-  return (display.textContent = valueToDisplay);
+    if (objetoOperacion.operador === undefined) {
+  return (display.textContent += valueToDisplay);
+    }
+    else {
+        return (display.textContent = valueToDisplay);
+    }
 }
 number0.addEventListener("click", () => {
   return displayTheValue(number0.textContent);
@@ -95,6 +108,22 @@ function divide(a, b) {
   return a / b;
 }
 
-function operates(a, b, operator) {
-  return operator(a, b);
+function operar(valorPantalla, objetoOperacion) {
+    let resultado = 0;
+    if(objetoOperacion.operador === "+") {
+        resultado = add(Number(objetoOperacion.previousValue), Number(valorPantalla));
+        return resultado;
+    }
+    else if(objetoOperacion.operador === "-") {
+        resultado = substract(Number(objetoOperacion.previousValue), Number(valorPantalla));
+        return resultado;
+    }
+    else if(objetoOperacion.operador === "x") {
+        resultado = multiply(Number(objetoOperacion.previousValue), Number(valorPantalla));
+        return resultado;
+    }
+    else if(objetoOperacion.operador === "/") {
+        resultado = divide(Number(objetoOperacion.previousValue), Number(valorPantalla));
+        return resultado;
+    }
 }
