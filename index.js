@@ -1,7 +1,8 @@
 ///TODO
 
 //Variables de botones
-
+const clear = document.querySelector("#c");
+const punto = document.querySelector("#punto");
 const number0 = document.querySelector("#zero");
 const number1 = document.querySelector("#one");
 const number2 = document.querySelector("#two");
@@ -18,62 +19,94 @@ const multiplicar = document.querySelector("#multiplicar");
 const dividir = document.querySelector("#dividir");
 const igual = document.querySelector("#igual");
 let display = document.querySelector("#display-value");
-let displayValue = display.textContent;
+let displayValor = display.textContent;
 let objetoOperacion = {
   operador: undefined,
-  previousValue: undefined,
+  valorAnterior: undefined,
+  valorGuardado: false,
 };
 
 //Funciones operadores
 //Si no es undefined, llamar a la funcion operar
-function pressOperator(operante, operatorButton, objetoOperacion) {
-  if (objetoOperacion.previousValue === undefined) {
+function presionarOperador(operante, operatorButton, objetoOperacion) {
+  if (objetoOperacion.valorAnterior === undefined) {
     objetoOperacion = {
       operador: operante.textContent,
-      previousValue: display.textContent,
+      valorAnterior: display.textContent,
+      valorGuardado: true,
     };
     return objetoOperacion;
-  }
-  else {
+  } else {
     display.textContent = operar(display.textContent, objetoOperacion);
     objetoOperacion = {
       operador: operante.textContent,
-      previousValue: display.textContent,
+      valorAnterior: display.textContent,
+      valorGuardado: true,
     };
     return objetoOperacion;
-
   }
 }
 
 sumar.addEventListener("click", () => {
-  objetoOperacion = pressOperator(sumar, displayValue, objetoOperacion);
+  objetoOperacion = presionarOperador(sumar, displayValor, objetoOperacion);
   return objetoOperacion;
 });
 restar.addEventListener("click", () => {
-  objetoOperacion = pressOperator(restar, displayValue, objetoOperacion);
+  objetoOperacion = presionarOperador(restar, displayValor, objetoOperacion);
   return objetoOperacion;
 });
 multiplicar.addEventListener("click", () => {
-  objetoOperacion = pressOperator(multiplicar, displayValue, objetoOperacion);
+  objetoOperacion = presionarOperador(
+    multiplicar,
+    displayValor,
+    objetoOperacion
+  );
   return objetoOperacion;
 });
 dividir.addEventListener("click", () => {
-  objetoOperacion = pressOperator(dividir, displayValue, objetoOperacion);
+  objetoOperacion = presionarOperador(dividir, displayValor, objetoOperacion);
   return objetoOperacion;
 });
 igual.addEventListener("click", () => {
-  return (display.textContent = operar(display.textContent, objetoOperacion));
+  display.textContent = operar(display.textContent, objetoOperacion);
+  objetoOperacion.valorAnterior = undefined;
+  return;
+});
+clear.addEventListener("click", () => {
+  return limpiarCalculadora();
 });
 
 // Funciones display number
 
 function displayTheValue(valueToDisplay) {
-  if (objetoOperacion.operador === undefined) {
+  if (display.textContent.length > 10) return;
+
+   else if (objetoOperacion.valorGuardado === false) {
     return (display.textContent += valueToDisplay);
   } else {
+    objetoOperacion.valorGuardado = false;
     return (display.textContent = valueToDisplay);
   }
 }
+punto.addEventListener("click", () => {
+  return agregarPunto();
+  function agregarPunto() {
+    if (
+      display.textContent === null ||
+      objetoOperacion.valorGuardado === true
+    ) {
+      return (display.textContent = "0.");
+    } else {
+      let arrayString = [...display.textContent];
+      for (let i = 0; i < arrayString.length; i++) {
+        if (arrayString[i] === ".") {
+          return;
+        }
+      }
+      return (display.textContent += ".");
+    }
+  }
+});
 number0.addEventListener("click", () => {
   return displayTheValue(number0.textContent);
 });
@@ -123,27 +156,41 @@ function operar(valorPantalla, objetoOperacion) {
   let resultado = 0;
   if (objetoOperacion.operador === "+") {
     resultado = add(
-      Number(objetoOperacion.previousValue),
+      Number(objetoOperacion.valorAnterior),
       Number(valorPantalla)
     );
     return resultado;
   } else if (objetoOperacion.operador === "-") {
     resultado = substract(
-      Number(objetoOperacion.previousValue),
+      Number(objetoOperacion.valorAnterior),
       Number(valorPantalla)
     );
     return resultado;
   } else if (objetoOperacion.operador === "x") {
     resultado = multiply(
-      Number(objetoOperacion.previousValue),
+      Number(objetoOperacion.valorAnterior),
       Number(valorPantalla)
     );
     return resultado;
   } else if (objetoOperacion.operador === "/") {
+    if (valorPantalla === "0") {
+      alert("ERROR");
+      limpiarCalculadora();
+      return;
+    }
     resultado = divide(
-      Number(objetoOperacion.previousValue),
+      Number(objetoOperacion.valorAnterior),
       Number(valorPantalla)
     );
-    return resultado;
+    return Math.round(resultado * 100) / 100;
   }
+}
+function limpiarCalculadora() {
+  objetoOperacion = {
+    operador: undefined,
+    valorAnterior: undefined,
+    valorGuardado: false,
+  };
+  display.textContent = null;
+  return;
 }

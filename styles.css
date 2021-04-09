@@ -1,0 +1,160 @@
+body {
+    font-family: 'Roboto', sans-serif;
+}
+footer {
+    padding-top: 20px;
+    font-size: 1.2rem;
+}
+
+#titulo {
+    font-size: 2.5rem;
+}
+.contenedor {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.calculator-div {
+    background-color: #007965;
+    width: 300px;
+    height: 350px;
+    text-align: right;
+    border-style: solid;
+    border-color: #00af91;
+    border-radius: 5px;
+}
+.botones-pantalla {
+    width: 200px;
+    margin: auto;
+    padding-top: 20px;
+}
+.calculator-display {
+    height: 400px;
+}
+.display-container {
+    display: flex;
+    justify-content: flex-end;
+    
+}
+.calculator-screen {
+    margin-bottom: 10px;
+    height: 70px;
+    font-size: 1rem;
+    background-color: white;
+    border-radius: 5px;
+    
+}
+.button-container {
+    display: grid;
+    width: 200px;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+    grid-gap: 5px;
+    margin: auto;
+}
+.botones {
+    font-size: 2rem;
+    border-radius: 5px;
+}
+
+.numeros {
+    background-color: #ffcc29;
+}
+.operadores {
+    background-color: #f58634;
+}
+
+
+
+
+#zero {
+    grid-column: 1;
+    grid-row: 5;
+}
+
+
+#one {
+    grid-column: 1;
+    grid-row: 4;
+
+}
+#two {
+    grid-column: 2;
+    grid-row: 4;
+    
+}
+#three {
+    grid-column: 3;
+    grid-row: 4;
+    
+}
+#four {
+    grid-column: 1;
+    grid-row: 3;
+    
+}
+#five{
+    grid-column: 2;
+    grid-row: 3;
+    
+}
+#six {
+    grid-column: 3;
+    grid-row: 3;
+    
+}
+#seven {
+    grid-column: 1;
+    grid-row: 2;
+    
+}
+#eight {
+    grid-column: 2;
+    grid-row: 2;
+    
+}
+#nine {
+    grid-column: 3;
+    grid-row: 2;
+    
+}
+#c {
+    grid-column: 4;
+    grid-row: 1;
+}
+#punto {
+    grid-column: 2;
+    grid-row: 5;
+}
+#igual {
+    grid-column: 3;
+    grid-row: 5;
+}
+#sumar {
+    grid-column: 4;
+    grid-row: 5;
+
+}
+#restar {
+    grid-column: 4;
+    grid-row: 4;
+    
+}
+#multiplicar {
+    grid-column: 4;
+    grid-row: 3;
+    
+}
+#dividir {
+    grid-column: 4;
+    grid-row: 2;
+    
+}
+#six {
+    grid-column: 3;
+    grid-row: 3;
+    
+}
+
+
