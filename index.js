@@ -28,7 +28,7 @@ let objetoOperacion = {
 
 //Funciones operadores
 //Si no es undefined, llamar a la funcion operar
-function presionarOperador(operante, operatorButton, objetoOperacion) {
+function presionarOperador(operante, objetoOperacion) {
   if (objetoOperacion.valorAnterior === undefined) {
     objetoOperacion = {
       operador: operante.textContent,
@@ -48,11 +48,11 @@ function presionarOperador(operante, operatorButton, objetoOperacion) {
 }
 
 sumar.addEventListener("click", () => {
-  objetoOperacion = presionarOperador(sumar, displayValor, objetoOperacion);
+  objetoOperacion = presionarOperador(sumar, objetoOperacion);
   return objetoOperacion;
 });
 restar.addEventListener("click", () => {
-  objetoOperacion = presionarOperador(restar, displayValor, objetoOperacion);
+  objetoOperacion = presionarOperador(restar, objetoOperacion);
   return objetoOperacion;
 });
 multiplicar.addEventListener("click", () => {
@@ -64,7 +64,7 @@ multiplicar.addEventListener("click", () => {
   return objetoOperacion;
 });
 dividir.addEventListener("click", () => {
-  objetoOperacion = presionarOperador(dividir, displayValor, objetoOperacion);
+  objetoOperacion = presionarOperador(dividir, objetoOperacion);
   return objetoOperacion;
 });
 igual.addEventListener("click", () => {
@@ -79,9 +79,8 @@ clear.addEventListener("click", () => {
 // Funciones display number
 
 function displayTheValue(valueToDisplay) {
-  if (display.textContent.length > 10) return;
-
-   else if (objetoOperacion.valorGuardado === false) {
+  if (display.textContent.length > 12) return;
+  else if (objetoOperacion.valorGuardado === false) {
     return (display.textContent += valueToDisplay);
   } else {
     objetoOperacion.valorGuardado = false;
