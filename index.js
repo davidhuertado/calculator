@@ -80,7 +80,10 @@ clear.addEventListener("click", () => {
 // Funciones display number
 
 function displayTheValue(valueToDisplay) {
-  if (display.textContent.length > 12) return;
+  if (display.textContent.length > 12) {
+  alert("Maximo 13 digitos");
+  return;
+  }
   else if (objetoOperacion.valorGuardado === false) {
     return (display.textContent += valueToDisplay);
   } else {
