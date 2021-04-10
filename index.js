@@ -70,6 +70,7 @@ dividir.addEventListener("click", () => {
 igual.addEventListener("click", () => {
   display.textContent = operar(display.textContent, objetoOperacion);
   objetoOperacion.valorAnterior = undefined;
+  objetoOperacion.valorGuardado = true;
   return;
 });
 clear.addEventListener("click", () => {
